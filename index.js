@@ -11,6 +11,17 @@ var mongoose = require('mongoose');
 		 
     }
 });
+var TodoSchema = new mongoose.Schema({
+  name: String,
+  completed: Boolean,
+  note: String,
+  updated_at: { type: Date, default: Date.now },
+});
+var Todo = mongoose.model('Todo', TodoSchema);
+Todo.create({name: 'Master Javscript', completed: true, note: 'Getting better everyday'}, function(err, todo){
+    if(err) console.log(err);
+    else console.log(todo);
+});
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -32,17 +43,7 @@ app.listen(app.get('port'), function() {
 });
 app.get('/db', function (request, response) {
 
-var TodoSchema = new mongoose.Schema({
-  name: String,
-  completed: Boolean,
-  note: String,
-  updated_at: { type: Date, default: Date.now },
-});
-var Todo = mongoose.model('Todo', TodoSchema);
-Todo.create({name: 'Master Javscript', completed: true, note: 'Getting better everyday'}, function(err, todo){
-    if(err) console.log(err);
-    else console.log(todo);
-});
+
  Todo.find({completed: true }, function(err, todo){
     if(err) response.send(err);
    else response.json(todo);
