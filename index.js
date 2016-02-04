@@ -26,9 +26,9 @@ app.listen(app.get('port'), function() {
 app.get('/db', function (request, response) {
 mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler');
 	var db = mongoose.connection;
-   db.on('error', console.error.bind(console, 'connection error:'));
+   db.on('error',  console.log('no connection'))
    db.once('open', function() {
-  console.log("Hello World!");
+  response.send(cool());
 });
 })
 
