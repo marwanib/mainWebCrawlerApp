@@ -2,9 +2,6 @@ var cool = require('cool-ascii-faces');
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-var db = mongoose.connection;
-db.on('error', console.error);
-mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler');
 	var db = mongoose.connection;
 app.set('port', (process.env.PORT || 5000));
 
@@ -26,10 +23,12 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 app.get('/db', function (request, response) {
-
-   db.on('error', function() {
- response.send(cool())})
-   db.once('open', function() {
+mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler', function(err) {
+    if(err) {
+        console.log('connection error', err);
+    } else {
+        console.log('connection successful');
+    }
 });
-})
+});
 
