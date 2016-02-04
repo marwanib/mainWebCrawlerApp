@@ -4,6 +4,8 @@ var app = express();
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 db.on('error', console.error);
+mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler');
+	var db = mongoose.connection;
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -24,11 +26,10 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 app.get('/db', function (request, response) {
-mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler');
-	var db = mongoose.connection;
-   db.on('error',  console.log('no connection'))
+
+   db.on('error', function() {
+ response.send(cool())})
    db.once('open', function() {
-  response.send(cool());
 });
 })
 
