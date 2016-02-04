@@ -28,6 +28,7 @@ mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawl
         console.log('connection error', err);
     } else {
         console.log('connection successful');
+		 response.send('hello');
     }
 });
 });
