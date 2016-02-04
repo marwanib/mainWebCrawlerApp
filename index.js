@@ -3,6 +3,14 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 	var db = mongoose.connection;
+	 mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler', function(err) {
+    if(err) {
+        console.log('connection error', err);
+    } else {
+        console.log('connection successful');
+		 
+    }
+});
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -23,14 +31,7 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 app.get('/db', function (request, response) {
- mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler', function(err) {
-    if(err) {
-        console.log('connection error', err);
-    } else {
-        console.log('connection successful');
-		 
-    }
-});
+
 var TodoSchema = new mongoose.Schema({
   name: String,
   completed: Boolean,
