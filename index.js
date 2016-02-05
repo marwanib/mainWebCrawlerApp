@@ -1,6 +1,8 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser());
 var mongoose = require('mongoose');
 	var db = mongoose.connection;
 	 mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler', function(err) {
@@ -11,17 +13,14 @@ var mongoose = require('mongoose');
 		 
     }
 });
-var TodoSchema = new mongoose.Schema({
-  name: String,
+ var TodoSchema = new mongoose.Schema({
+  url: String,
   completed: Boolean,
   note: String,
   updated_at: { type: Date, default: Date.now },
 });
-var Todo = mongoose.model('Todo', TodoSchema);
-Todo.create({name: 'Master Javscript', completed: true, note: 'Getting better everyday'}, function(err, todo){
-    if(err) console.log(err);
-    else console.log(todo);
-});
+var seed = mongoose.model('seeds', TodoSchema);
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -33,6 +32,9 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   response.render('pages/index')
 });
+app.get('/index.htm', function (req, res) {
+   res.sendFile( __dirname + "/" + "index.htm" );
+})
 
 app.get('/cool', function(request, response) {
   response.send(cool());
@@ -41,13 +43,24 @@ app.get('/cool', function(request, response) {
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-app.get('/db', function (request, response) {
-
-
- Todo.find({completed: true }, function(err, todo){
+app.get('/get_url', function (request, response) {
+ seed.findOne(function(err, seed){
     if(err) response.send(err);
-   else response.json(todo);
+   else response.send(seed.url);
+		seed.remove(seed, function(err, seed){
+        if(err) console.log(err);
+        else console.log(seed);
+});
   });
 
 });
+app.post('/post_url', function (req, res) {
+var input_in = req.body.user.name;
+   console.log(req.body.user.name);
+	res.send(input_in);
+	seed.create({url: input_in }, function(err, seed){
+    if(err) console.log(err);
+    else console.log(seed);
+});
+})
 
