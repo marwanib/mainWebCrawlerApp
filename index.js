@@ -2,7 +2,11 @@ var cool = require('cool-ascii-faces');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-app.use(bodyParser());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.text())
+// parse application/json
+app.use(bodyParser.json())
 var mongoose = require('mongoose');
 	var db = mongoose.connection;
 	 mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler', function(err) {
@@ -55,8 +59,8 @@ app.get('/get_url', function (request, response) {
 
 });
 app.post('/post_url', function (req, res) {
-var input_in = req.body.user.name;
-   console.log(req.body.user.name);
+var input_in = req.body.name;
+   console.log(req.body.name);
 	res.send(input_in);
 	seed.create({url: input_in }, function(err, seed){
     if(err) console.log(err);
