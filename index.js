@@ -35,9 +35,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   response.render('pages/index')
 });
-/*app.get('/index.htm', function (req, res) {
- res.sendFile( __dirname + "/" + "index.htm" );
-})*/
+
 
 app.get('/cool', function(request, response) {
   response.send(cool());
