@@ -59,8 +59,8 @@ app.get('/get_url', function (request, response) {
 
 });
 app.post('/post_url', function (req, res) {
-var input_in = req.body.name;
-   console.log(req.body.name);
+var input_in = req.body;
+   console.log(req.body);
 	res.send(input_in);
 	seed.create({url: input_in }, function(err, seed){
     if(err) console.log(err);
