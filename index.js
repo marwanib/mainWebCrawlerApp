@@ -59,12 +59,12 @@ app.get('/get_url', function (request, response) {
 
 });
 app.post('/post_url', function (req, res) {
-var input_in = req.body;
-   console.log(req.body);
-	/*res.send(input_in);
+var input_in = req.body.url;
+   console.log(req.body.url);
+	res.send(input_in);
 	seed.create({url: input_in }, function(err, seed){
     if(err) console.log(err);
     else console.log(seed);
-});*/
+});
 });
 
