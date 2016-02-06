@@ -11,6 +11,7 @@
     "ejs": "^2.3.1",
     "express": "~4.9.x",
     "mongoose": "^4.3.4",
+	"kerberos": "~0.0.17",
     "pg": "4.x"
   },
   "engines": {
