@@ -57,7 +57,7 @@ app.get('/get_url', function (request, response) {
   });
 
 });
-/*app.post('/post_url', function (req, res) {
+app.post('/post_url', function (req, res) {
 var input_in = req.body.name;
    console.log(req.body.name);
 	res.send(input_in);
@@ -65,5 +65,5 @@ var input_in = req.body.name;
     if(err) console.log(err);
     else console.log(seed);
 });
-});*/
+});
 
