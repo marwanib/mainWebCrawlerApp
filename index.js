@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.text());
  //parse application/json
 app.use(bodyParser.json());
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+app.use(bodyParser.urlencoded({ extended: false }));
 var mongoose = require('mongoose');
 	var db = mongoose.connection;
 	 mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler', function(err) {
