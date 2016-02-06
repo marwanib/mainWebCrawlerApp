@@ -1,11 +1,11 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
 var app = express();
-//var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
 //app.use(bodyParser.text())
  //parse application/json
-//app.use(bodyParser.json())
+app.use(bodyParser.json())
 var mongoose = require('mongoose');
 	var db = mongoose.connection;
 	 mongoose.connect('mongodb://Bashar:bashar15@ds039155.mongolab.com:39155/webcrawler', function(err) {
