@@ -50,7 +50,7 @@ app.listen(app.get('port'), function() {
 app.get('/get_url', function (request, response) {
  seed.findOne(function(err, seed){
     if(err) response.send(err);
-   else response.send(seed.url);
+   else response.json(seed);
 		seed.remove(seed, function(err, seed){
         if(err) console.log(err);
         else console.log(seed);
