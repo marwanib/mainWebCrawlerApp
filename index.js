@@ -62,7 +62,8 @@ app.post('/post_url', function (req, res) {
 var input_in = req.body.url;
    console.log(req.body.url);
 	res.send(input_in);
-	seed.create({url: input_in }, function(err, seed){
+	var substring="http://";
+	if(input_in.indexOf(substring) > -1) seed.create({url: input_in }, function(err, seed){
     if(err) console.log(err);
     else console.log(seed);
 });
