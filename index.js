@@ -24,6 +24,17 @@ var mongoose = require('mongoose');
   updated_at: { type: Date, default: Date.now }
 });
 var seed = mongoose.model('seeds', TodoSchema);
+var url_weightSchema=new mongoose.Schema({
+  url: String,
+  weight:Number,
+  updated_at: { type: Date, default: Date.now }
+});
+ var indexSchema = new mongoose.Schema({
+  indexword: String,
+  urls:[url_weightSchema],
+  updated_at: { type: Date, default: Date.now }
+});
+var indexword = mongoose.model('indexwords', indexSchema);
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -69,3 +80,25 @@ var input_in = req.body.url;
 });
 });
 
+
+app.post('/post_indexword', function (req, res) {
+var input_url = req.body.url;
+var input_indexword=req.body.indexWord;
+var input_weight=req.body.weight;
+indexword.count({indexword:input_indexword},function(err,count){
+if(count == 0) indexword.create({indexword:input_indexword,urls:{url:input_url ,
+  weight:input_weight}},function(err, index){
+    if(err) console.log(err);
+    else console.log(index);
+});
+else indexword.count({indexword:input_indexword,urls:{url:input_url}},function(err, count){
+    if(err) console.log(err);
+    else if(count == 0) indexword.findOne({indexword:input_indexword,urls:{url:input_url}},function(err,index){
+	if(err) console.log(err);
+	else index.urls.push({url:input_url , weight:input_weight});
+	     index.save();
+		 console.log(index);
+	});
+});
+});
+});
