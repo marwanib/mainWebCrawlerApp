@@ -101,4 +101,5 @@ else indexword.count({indexword:input_indexword,urls:{url:input_url}},function(e
 	});
 });
 });
+res.send(input_indexword);
 });
