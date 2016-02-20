@@ -93,11 +93,9 @@ if(count == 0) indexword.create({indexword:input_indexword,urls:{url:input_url ,
 });
 else indexword.count({indexword:input_indexword,urls:{url:input_url}},function(err, count){
     if(err) console.log(err);
-    else if(count == 0) indexword.findOne({indexword:input_indexword,urls:{url:input_url}},function(err,index){
+    else if(count == 0) indexword.findOne({indexword:input_indexword},{$push:{"urls":{url:input_url , weight:input_weight}}},function(err,index){
 	if(err) console.log(err);
-	else index.urls.push({url:input_url , weight:input_weight});
-	     index.save();
-		 console.log(index);
+	else console.log(index);
 	});
 });
 });
