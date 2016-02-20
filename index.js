@@ -97,6 +97,7 @@ else indexword.count({indexword:input_indexword,urls:{url:input_url}},function(e
 	if(err) console.log(err);
 	else console.log(index);
 	});
+		console.log(count);
 });
 });
 res.send(input_indexword);
