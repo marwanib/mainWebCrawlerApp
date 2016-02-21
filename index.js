@@ -91,7 +91,7 @@ if(count == 0) indexword.create({indexword:input_indexword,urls:{url:input_url ,
     if(err) console.log(err);
     else console.log(index);
 });
-else indexword.findOndAndUpdat({indexword:input_indexword,urls:{url:input_url}},{$push:{urls:{url:input_url , weight:input_weight}}},function(err, index){
+else indexword.findOneAndUpdate({indexword:input_indexword,urls:{url:input_url}},{$push:{urls:{url:input_url , weight:input_weight}}},function(err, index){
     if(err) console.log(err);
     else console.log(index);
 });
