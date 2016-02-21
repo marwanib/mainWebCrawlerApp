@@ -60,14 +60,18 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 app.get('/get_url', function (request, response) {
- seed.findOne(function(err, seed){
-    if(err) response.send(err);
-   else response.json(seed);
-		seed.remove(seed, function(err, seed){
+ seed.findOne(function(err, s1){
+    if(err) {response.send(err);
+   }else {response.json(s1);
+		 seed.count(s1,function(err, count){
+    if(err){ response.send(err);
+	}else{ if(count==0)crawledSeed.create(s1, function(err, s2){
+    if(err) console.log(err);
+    else console.log(s2);});
+		seed.remove(s1, function(err, s3){
         if(err) console.log(err);
-        else console.log(seed);
-});
-  });
+        else console.log(s3);});
+ }}); }});
 
 });
 app.post('/post_url', function (req, res) {
