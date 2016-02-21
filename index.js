@@ -86,16 +86,20 @@ var input_url = req.body.url;
 var input_indexword=req.body.indexWord;
 var input_weight=req.body.weight;
 indexword.count({indexword:input_indexword},function(err,count){
-if(count == 0) indexword.create({indexword:input_indexword,urls:{url:input_url ,
+if(count == 0){ indexword.create({indexword:input_indexword,urls:{url:input_url ,
   weight:input_weight}},function(err, index){
     if(err) console.log(err);
     else console.log(index);
 });
-else indexword.findOneAndUpdate({indexword:input_indexword,urls:{url:input_url}},{$AddAndSet:{urls:{url:input_url , weight:input_weight}}},function(err, index){
-    if(err) console.log(err);
-    else console.log(index);
+}else{ indexword.count({indexword:input_indexword,urls:{$elemMatch:{url:input_url}}},function(err, count){
+    if(err){ console.log(err);
+    } else { if(count == 0) indexword.update({indexword:input_indexword},{$push:{urls:{url:input_url , weight:input_weight}}},function(err,index){
+	if(err){ console.log(err);
+	} else { console.log(index);
+	}});}
+		console.log(count);
 });
-
+}
 });
 res.send(input_indexword);
 });
