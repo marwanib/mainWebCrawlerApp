@@ -24,6 +24,7 @@ var mongoose = require('mongoose');
   updated_at: { type: Date, default: Date.now }
 });
 var seed = mongoose.model('seeds', TodoSchema);
+var crawledSeed = mongoose.model('seeds', TodoSchema);
 var url_weightSchema=new mongoose.Schema({
   url: String,
   weight:Number,
@@ -74,12 +75,15 @@ var input_in = req.body.url;
    console.log(req.body.url);
 	res.send(input_in);
 	var substring="http://";
-	if(input_in.indexOf(substring) > -1) seed.create({url: input_in }, function(err, seed){
+	if(input_in.indexOf(substring) > -1) crawledSeed.count({url:input_in},function(err, count){
+	if(err){ console.log(err);
+	}else {if(count == 0){
+	seed.create({url: input_in }, function(err, seed){
     if(err) console.log(err);
     else console.log(seed);
+});}
+}});
 });
-});
-
 
 app.post('/post_indexword', function (req, res) {
 var input_url = req.body.url;
