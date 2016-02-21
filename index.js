@@ -24,7 +24,7 @@ var mongoose = require('mongoose');
   updated_at: { type: Date, default: Date.now }
 });
 var seed = mongoose.model('seeds', TodoSchema);
-var crawledSeed = mongoose.model('seeds', TodoSchema);
+var crawledSeed = mongoose.model('crawledSeed', TodoSchema);
 var url_weightSchema=new mongoose.Schema({
   url: String,
   weight:Number,
