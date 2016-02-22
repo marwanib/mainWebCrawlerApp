@@ -63,6 +63,10 @@ app.get('/get_url', function (request, response) {
  seed.findOne(function(err, s){
     if(err) {response.send(err);
    }else {response.json(s);
+			crawledSeed.create(s, function(err, seed){
+    if(err) console.log(err);
+    else console.log(s);
+});
 		seed.remove(s, function(err, s){
         if(err) console.log(err);
         else console.log(s);});
