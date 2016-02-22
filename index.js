@@ -63,15 +63,10 @@ app.get('/get_url', function (request, response) {
  seed.findOne(function(err, s){
     if(err) {response.send(err);
    }else {response.json(s);
-		 seed.count(s,function(err, count){
-    if(err){ response.send(err);
-	}else{ if(count==0)crawledSeed.create(s, function(err, s){
-    if(err) console.log(err);
-    else console.log(s);});
 		seed.remove(s, function(err, s){
         if(err) console.log(err);
         else console.log(s);});
- }}); }});
+ }});
 
 });
 app.post('/post_url', function (req, res) {
@@ -82,10 +77,13 @@ var input_in = req.body.url;
 	if(input_in.indexOf(substring) > -1) crawledSeed.count({url:input_in},function(err, count){
 	if(err){ console.log(err);
 	}else {if(count == 0){
+	seed.count({url:input_in},function(err, c){
+	if(err){ console.log(err);
+	}else {if(c == 0){
 	seed.create({url: input_in }, function(err, seed){
     if(err) console.log(err);
     else console.log(seed);
-});}
+})}};});}
 }});
 });
 
