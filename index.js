@@ -80,7 +80,6 @@ var input_in = input_array[i].url;
 	var substring="http://";
 	seed.remove({url: input_in }, function(err, s){
         if(err) console.log(err); });
- }});
 	if(input_in.indexOf(substring) > -1) seed.create({url: input_in }, function(err, seed){
     if(err) console.log(err);
     else console.log(seed);
@@ -90,7 +89,8 @@ var input_in = input_array[i].url;
 	}else {if(count != 0){
 	seed.remove({url: input_in }, function(err, s){
         if(err) console.log(err); });
- }}})
+ }}});
+ }
 
 	res.send(input_array);
 });
