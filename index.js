@@ -75,10 +75,7 @@ app.get('/get_url', function (request, response) {
 });
 app.post('/post_url', function (req, res) {
 input_array=req.body;
-console.log(input_array);
 for(var i in input_array ){
-console.log(i);
-console.log('*******');
 var input_in = input_array[i].url;
    console.log(input_array[i].url);
 	var substring="http://";
@@ -99,7 +96,6 @@ var input_in = input_array[i].url;
 
 app.post('/post_indexword', function (req, res) {
 input_array=req.body;
-console.log(input_array);
 for(var i in input_array ){
 var input_url = input_array[i].url;
 var input_indexword=input_array[i].indexWord;
@@ -108,15 +104,12 @@ indexword.count({indexword:input_indexword},function(err,count){
 if(count == 0){ indexword.create({indexword:input_indexword,urls:{url:input_url ,
   weight:input_weight}},function(err, index){
     if(err) console.log(err);
-    else console.log(index);
 });
 }else{ indexword.count({indexword:input_indexword,urls:{$elemMatch:{url:input_url}}},function(err, count){
     if(err){ console.log(err);
     } else { if(count == 0) indexword.update({indexword:input_indexword},{$push:{urls:{url:input_url , weight:input_weight}}},function(err,index){
 	if(err){ console.log(err);
-	} else { console.log(index);
-	}});}
-		console.log(count);
+	} });}
 });
 }
 });
