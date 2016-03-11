@@ -104,10 +104,10 @@ app.post('/post_indexword', function (req, res) {
 input_array=req.body;
 crawledSeed.count(function(err, count){
 	if(err){ console.log(err);
-	}else {if((count%100)==0){
+	}else {
 	peformance.create({crawledPagesNumber: count }, function(err, s){
         if(err) console.log(err); });
- }}});
+ }});
 for(var i in input_array ){
 var input_url = input_array[i].url;
 var input_indexword=input_array[i].indexWord;
