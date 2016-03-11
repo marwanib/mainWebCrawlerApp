@@ -63,9 +63,9 @@ app.get('/get_url', function (request, response) {
  seed.findOne(function(err, s){
     if(err) {response.send(err);
    }else {response.json(s);
-			crawledSeed.create(s, function(err, seed){
+			crawledSeed.create(s, function(err, s1){
     if(err) console.log(err);
-    else console.log(s);
+    else console.log(s1);
 });
 		seed.remove(s, function(err, s){
         if(err) console.log(err);
@@ -74,8 +74,10 @@ app.get('/get_url', function (request, response) {
 
 });
 app.post('/post_url', function (req, res) {
-var input_in = req.body.url;
-   console.log(req.body.url);
+input_array=req.body;
+for(var i in input_array ){
+var input_in = input_array[i].url;
+   console.log(input_array[i].url);
 	res.send(input_in);
 	var substring="http://";
 	if(input_in.indexOf(substring) > -1) crawledSeed.count({url:input_in},function(err, count){
@@ -89,6 +91,7 @@ var input_in = req.body.url;
     else console.log(seed);
 })}};});}
 }});
+}
 });
 
 app.post('/post_indexword', function (req, res) {
