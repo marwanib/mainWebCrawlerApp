@@ -35,8 +35,12 @@ var url_weightSchema=new mongoose.Schema({
   urls:[url_weightSchema],
   updated_at: { type: Date, default: Date.now }
 });
+ var performanceSchema = new mongoose.Schema({
+  crawledPagesNumber:Number,
+  updated_at: { type: Date, default: Date.now }
+});
 var indexword = mongoose.model('indexwords', indexSchema);
-
+var peformance= mongoose.model('performanceDB', performanceSchema);
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -62,14 +66,15 @@ app.listen(app.get('port'), function() {
 app.get('/get_url', function (request, response) {
  seed.findOne(function(err, s){
     if(err) {response.send(err);
-   }else {response.json(s);
-			crawledSeed.create(s, function(err, s1){
+   }else {crawledSeed.create(s, function(err, s1){
     if(err) console.log(err);
     else console.log(s1);
 });
 		seed.remove(s, function(err, s){
         if(err) console.log(err);
         else console.log(s);});
+   response.json(s);
+
  }});
 
 });
@@ -97,6 +102,12 @@ var input_in = input_array[i].url;
 
 app.post('/post_indexword', function (req, res) {
 input_array=req.body;
+crawledSeed.count(function(err, count){
+	if(err){ console.log(err);
+	}else {if((count%100)==0){
+	peformance.create({crawledPagesNumber: count }, function(err, s){
+        if(err) console.log(err); });
+ }}});
 for(var i in input_array ){
 var input_url = input_array[i].url;
 var input_indexword=input_array[i].indexWord;
