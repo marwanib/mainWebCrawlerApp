@@ -75,6 +75,7 @@ app.get('/get_url', function (request, response) {
 });
 app.post('/post_url', function (req, res) {
 input_array=req.body;
+console.log(input_array);
 for(var i in input_array ){
 var input_in = input_array[i].url;
    console.log(input_array[i].url);
