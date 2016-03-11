@@ -81,7 +81,6 @@ console.log(i);
 console.log('*******');
 var input_in = input_array[i].url;
    console.log(input_array[i].url);
-	res.send(input_in);
 	var substring="http://";
 	if(input_in.indexOf(substring) > -1) crawledSeed.count({url:input_in},function(err, count){
 	if(err){ console.log(err);
@@ -95,12 +94,16 @@ var input_in = input_array[i].url;
 })}};});}
 }});
 }
+	res.send(input_array);
 });
 
 app.post('/post_indexword', function (req, res) {
-var input_url = req.body.url;
-var input_indexword=req.body.indexWord;
-var input_weight=req.body.weight;
+input_array=req.body;
+console.log(input_array);
+for(var i in input_array ){
+var input_url = input_array[i].url;
+var input_indexword=input_array[i].indexWord;
+var input_weight=input_array[i].weight;
 indexword.count({indexword:input_indexword},function(err,count){
 if(count == 0){ indexword.create({indexword:input_indexword,urls:{url:input_url ,
   weight:input_weight}},function(err, index){
@@ -117,5 +120,6 @@ if(count == 0){ indexword.create({indexword:input_indexword,urls:{url:input_url 
 });
 }
 });
+}
 res.send(input_indexword);
 });
