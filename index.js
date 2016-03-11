@@ -77,7 +77,7 @@ app.post('/post_url', function (req, res) {
 input_array=req.body;
 for(var i in input_array ){
 var input_in = input_array[i].url;
-   console.log(input_array[i].url);
+   console.log(input_in);
 	var substring="http://";
 	if(input_in.indexOf(substring) > -1) crawledSeed.count({url:input_in},function(err, count){
 	if(err){ console.log(err);
